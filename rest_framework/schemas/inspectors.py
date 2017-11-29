@@ -117,6 +117,9 @@ def update_fields(fields, update_with):
     * `fields`: list of `coreapi.Field` instances to update
     * `update_with: list of `coreapi.Field` instances to add or replace.
     """
+    if not update_with:
+        return fields
+
     by_name = OrderedDict((f.name, f) for f in fields)
     for f in update_with:
         by_name[f.name] = f
@@ -398,9 +401,7 @@ class AutoSchema(ViewInspector):
         """
         Adjust `fields` with `manual_fields`
         """
-        if self._manual_fields is not None:
-            fields = update_fields(fields, self._manual_fields)
-        return fields
+        return update_fields(fields, self._manual_fields)
 
     def get_encoding(self, path, method):
         """
