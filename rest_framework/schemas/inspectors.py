@@ -175,13 +175,16 @@ class AutoSchema(ViewInspector):
 
         self._manual_fields = manual_fields
 
+    def get_manual_fields(self):
+        return self._manual_fields
+
     def get_link(self, path, method, base_url):
         fields = self.get_path_fields(path, method)
         fields += self.get_serializer_fields(path, method)
         fields += self.get_pagination_fields(path, method)
         fields += self.get_filter_fields(path, method)
 
-        fields = self.update_fields(fields, self._manual_fields)
+        fields = self.update_fields(fields, self.get_manual_fields())
 
         if fields and any([field.location in ('form', 'body') for field in fields]):
             encoding = self.get_encoding(path, method)
