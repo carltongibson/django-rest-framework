@@ -117,7 +117,7 @@ def update_fields(fields, update_with):
     * `fields`: list of `coreapi.Field` instances to update
     * `update_with: list of `coreapi.Field` instances to add or replace.
     """
-    by_name = {f.name: f for f in fields}
+    by_name = OrderedDict((f.name, f) for f in fields)
     for f in update_with:
         by_name[f.name] = f
     fields = list(by_name.values())
