@@ -5,8 +5,6 @@ shortcuts for automatically creating serializers based on a given model class.
 These tests deal with ensuring that we correctly map the model fields onto
 an appropriate set of serializer fields for each case.
 """
-from __future__ import unicode_literals
-
 import datetime
 import decimal
 import sys
@@ -20,7 +18,6 @@ from django.core.validators import (
 )
 from django.db import models
 from django.test import TestCase
-from django.utils import six
 
 from rest_framework import serializers
 from rest_framework.compat import postgres_fields, unicode_repr
@@ -212,13 +209,6 @@ class TestRegularFieldMappings(TestCase):
                 descriptive_field = IntegerField(help_text='Some help text', label='A label')
                 choices_field = ChoiceField(choices=(('red', 'Red'), ('blue', 'Blue'), ('green', 'Green')))
         """)
-        if six.PY2:
-            # This particular case is too awkward to resolve fully across
-            # both py2 and py3.
-            expected = expected.replace(
-                "('red', 'Red'), ('blue', 'Blue'), ('green', 'Green')",
-                "(u'red', u'Red'), (u'blue', u'Blue'), (u'green', u'Green')"
-            )
         self.assertEqual(unicode_repr(TestSerializer()), expected)
 
     # merge this into test_regular_fields / RegularFieldsModel when
@@ -646,13 +636,6 @@ class TestRelationalFieldMappings(TestCase):
                     url = HyperlinkedIdentityField(view_name='onetoonetargetmodel-detail')
                     name = CharField(max_length=100)
         """)
-        if six.PY2:
-            # This case is also too awkward to resolve fully across both py2
-            # and py3.  (See above)
-            expected = expected.replace(
-                "('foreign_key', 'one_to_one')",
-                "(u'foreign_key', u'one_to_one')"
-            )
         self.assertEqual(unicode_repr(TestSerializer()), expected)
 
     def test_pk_reverse_foreign_key(self):

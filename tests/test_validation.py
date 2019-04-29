@@ -1,11 +1,8 @@
-from __future__ import unicode_literals
-
 import re
 
 from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import models
 from django.test import TestCase
-from django.utils import six
 
 from rest_framework import generics, serializers, status
 from rest_framework.test import APIRequestFactory
@@ -112,7 +109,7 @@ class TestAvoidValidation(TestCase):
         assert not serializer.is_valid()
         assert serializer.errors == {
             'non_field_errors': [
-                'Invalid data. Expected a dictionary, but got %s.' % six.text_type.__name__
+                'Invalid data. Expected a dictionary, but got str.',
             ]
         }
 

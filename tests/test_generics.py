@@ -1,11 +1,8 @@
-from __future__ import unicode_literals
-
 import pytest
 from django.db import models
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.test import TestCase
-from django.utils import six
 
 from rest_framework import generics, renderers, serializers, status
 from rest_framework.response import Response
@@ -245,7 +242,7 @@ class TestInstanceView(TestCase):
         with self.assertNumQueries(2):
             response = self.view(request, pk=1).render()
         assert response.status_code == status.HTTP_204_NO_CONTENT
-        assert response.content == six.b('')
+        assert response.content == b''
         ids = [obj.id for obj in self.objects.all()]
         assert ids == [2, 3]
 

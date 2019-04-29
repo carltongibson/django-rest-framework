@@ -16,8 +16,6 @@ automatically.
     router.register(r'users', UserViewSet, 'user')
     urlpatterns = router.urls
 """
-from __future__ import unicode_literals
-
 from collections import OrderedDict
 from functools import update_wrapper
 from inspect import getmembers
@@ -34,7 +32,7 @@ def _is_extra_action(attr):
     return hasattr(attr, 'mapping')
 
 
-class ViewSetMixin(object):
+class ViewSetMixin:
     """
     This is the magic.
 

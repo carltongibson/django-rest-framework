@@ -1,8 +1,5 @@
-from __future__ import unicode_literals
-
 from django.conf.urls import include, url
 from django.test import TestCase, override_settings
-from django.utils import six
 
 from rest_framework import generics, routers, serializers, status, viewsets
 from rest_framework.parsers import JSONParser
@@ -150,7 +147,7 @@ class RendererIntegrationTests(TestCase):
         resp = self.client.head('/')
         self.assertEqual(resp.status_code, DUMMYSTATUS)
         self.assertEqual(resp['Content-Type'], RendererA.media_type + '; charset=utf-8')
-        self.assertEqual(resp.content, six.b(''))
+        self.assertEqual(resp.content, b'')
 
     def test_default_renderer_serializes_content_on_accept_any(self):
         """If the Accept header is set to */* the default renderer should serialize the response."""

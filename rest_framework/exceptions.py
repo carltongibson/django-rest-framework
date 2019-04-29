@@ -4,12 +4,9 @@ Handled exceptions raised by REST framework.
 In addition Django's built in 403 and 404 exceptions are handled.
 (`django.http.Http404` and `django.core.exceptions.PermissionDenied`)
 """
-from __future__ import unicode_literals
-
 import math
 
 from django.http import JsonResponse
-from django.utils import six
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
@@ -64,7 +61,7 @@ def _get_full_details(detail):
     }
 
 
-class ErrorDetail(six.text_type):
+class ErrorDetail(str):
     """
     A string-like object that can additionally have a code.
     """
@@ -76,7 +73,7 @@ class ErrorDetail(six.text_type):
         return self
 
     def __eq__(self, other):
-        r = super(ErrorDetail, self).__eq__(other)
+        r = super().__eq__(other)
         try:
             return r and self.code == other.code
         except AttributeError:
@@ -87,7 +84,7 @@ class ErrorDetail(six.text_type):
 
     def __repr__(self):
         return unicode_to_repr('ErrorDetail(string=%r, code=%r)' % (
-            six.text_type(self),
+            str(self),
             self.code,
         ))
 
@@ -113,7 +110,7 @@ class APIException(Exception):
         self.detail = _get_error_details(detail, code)
 
     def __str__(self):
-        return six.text_type(self.detail)
+        return str(self.detail)
 
     def get_codes(self):
         """
@@ -196,7 +193,7 @@ class MethodNotAllowed(APIException):
     def __init__(self, method, detail=None, code=None):
         if detail is None:
             detail = force_text(self.default_detail).format(method=method)
-        super(MethodNotAllowed, self).__init__(detail, code)
+        super().__init__(detail, code)
 
 
 class NotAcceptable(APIException):
@@ -206,7 +203,7 @@ class NotAcceptable(APIException):
 
     def __init__(self, detail=None, code=None, available_renderers=None):
         self.available_renderers = available_renderers
-        super(NotAcceptable, self).__init__(detail, code)
+        super().__init__(detail, code)
 
 
 class UnsupportedMediaType(APIException):
@@ -217,7 +214,7 @@ class UnsupportedMediaType(APIException):
     def __init__(self, media_type, detail=None, code=None):
         if detail is None:
             detail = force_text(self.default_detail).format(media_type=media_type)
-        super(UnsupportedMediaType, self).__init__(detail, code)
+        super().__init__(detail, code)
 
 
 class Throttled(APIException):
@@ -238,7 +235,7 @@ class Throttled(APIException):
                                      self.extra_detail_plural.format(wait=wait),
                                      wait))))
         self.wait = wait
-        super(Throttled, self).__init__(detail, code)
+        super().__init__(detail, code)
 
 
 def server_error(request, *args, **kwargs):

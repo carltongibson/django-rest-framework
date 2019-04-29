@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import re
 
 from django.utils.translation import ugettext_lazy as _
@@ -13,7 +10,7 @@ from rest_framework.templatetags.rest_framework import replace_query_param
 from rest_framework.utils.mediatypes import _MediaType
 
 
-class BaseVersioning(object):
+class BaseVersioning:
     default_version = api_settings.DEFAULT_VERSION
     allowed_versions = api_settings.ALLOWED_VERSIONS
     version_param = api_settings.VERSION_PARAM

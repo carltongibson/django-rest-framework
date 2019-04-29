@@ -6,8 +6,6 @@ This gives us better separation of concerns, allows us to use single-step
 object creation, and makes it possible to switch between using the implicit
 `ModelSerializer` class and an equivalent explicit `Serializer` class.
 """
-from __future__ import unicode_literals
-
 from django.db import DataError
 from django.utils.translation import ugettext_lazy as _
 
@@ -33,7 +31,7 @@ def qs_filter(queryset, **kwargs):
         return queryset.none()
 
 
-class UniqueValidator(object):
+class UniqueValidator:
     """
     Validator that corresponds to `unique=True` on a model field.
 
@@ -88,7 +86,7 @@ class UniqueValidator(object):
         ))
 
 
-class UniqueTogetherValidator(object):
+class UniqueTogetherValidator:
     """
     Validator that corresponds to `unique_together = (...)` on a model class.
 
@@ -177,7 +175,7 @@ class UniqueTogetherValidator(object):
         ))
 
 
-class BaseUniqueForValidator(object):
+class BaseUniqueForValidator:
     message = None
     missing_message = _('This field is required.')
 

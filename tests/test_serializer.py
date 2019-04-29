@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import inspect
 import pickle
 import re
@@ -160,7 +157,7 @@ class TestSerializer:
         to_internal_value() is expected to return a dict, but subclasses may
         return application specific type.
         """
-        class Point(object):
+        class Point:
             def __init__(self, srid, x, y):
                 self.srid = srid
                 self.coords = (x, y)

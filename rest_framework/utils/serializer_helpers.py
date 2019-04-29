@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from collections import OrderedDict
 
 from django.utils.encoding import force_text
@@ -17,7 +15,7 @@ class ReturnDict(OrderedDict):
 
     def __init__(self, *args, **kwargs):
         self.serializer = kwargs.pop('serializer')
-        super(ReturnDict, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def copy(self):
         return ReturnDict(self, serializer=self.serializer)
@@ -40,7 +38,7 @@ class ReturnList(list):
 
     def __init__(self, *args, **kwargs):
         self.serializer = kwargs.pop('serializer')
-        super(ReturnList, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def __repr__(self):
         return list.__repr__(self)
@@ -51,7 +49,7 @@ class ReturnList(list):
         return (list, (list(self),))
 
 
-class BoundField(object):
+class BoundField:
     """
     A field object that also includes `.value` and `.error` properties.
     Returned when iterating over a serializer instance,
@@ -105,7 +103,7 @@ class NestedBoundField(BoundField):
     def __init__(self, field, value, errors, prefix=''):
         if value is None or value is '':
             value = {}
-        super(NestedBoundField, self).__init__(field, value, errors, prefix)
+        super().__init__(field, value, errors, prefix)
 
     def __iter__(self):
         for field in self.fields.values():

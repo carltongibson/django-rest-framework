@@ -1,9 +1,5 @@
-# -- coding: utf-8 --
-
 # Note that we import as `DjangoRequestFactory` and `DjangoClient` in order
 # to make it harder for the user to import the wrong thing without realizing.
-from __future__ import unicode_literals
-
 import io
 from importlib import import_module
 
@@ -14,7 +10,6 @@ from django.test import override_settings, testcases
 from django.test.client import Client as DjangoClient
 from django.test.client import ClientHandler
 from django.test.client import RequestFactory as DjangoRequestFactory
-from django.utils import six
 from django.utils.encoding import force_bytes
 from django.utils.http import urlencode
 
@@ -32,7 +27,7 @@ if requests is not None:
         def get_all(self, key, default):
             return self.getheaders(key)
 
-    class MockOriginalResponse(object):
+    class MockOriginalResponse:
         def __init__(self, headers):
             self.msg = HeaderDict(headers)
             self.closed = False
@@ -189,7 +184,7 @@ class APIRequestFactory(DjangoRequestFactory):
             )
 
             # Coerce text to bytes if required.
-            if isinstance(ret, six.text_type):
+            if isinstance(ret, str):
                 ret = bytes(ret.encode(renderer.charset))
 
         return ret, content_type
@@ -202,8 +197,7 @@ class APIRequestFactory(DjangoRequestFactory):
             # Fix to support old behavior where you have the arguments in the
             # url. See #1461.
             query_string = force_bytes(path.split('?')[1])
-            if six.PY3:
-                query_string = query_string.decode('iso-8859-1')
+            query_string = query_string.decode('iso-8859-1')
             r['QUERY_STRING'] = query_string
         r.update(extra)
         return self.generic('GET', path, **r)

@@ -10,8 +10,6 @@ python primitives.
 2. The process of marshalling between python primitives and request and
 response content is handled by parsers and renderers.
 """
-from __future__ import unicode_literals
-
 import copy
 import inspect
 import traceback
@@ -23,7 +21,7 @@ from django.db import models
 from django.db.models import DurationField as ModelDurationField
 from django.db.models.fields import Field as DjangoModelField
 from django.db.models.fields import FieldDoesNotExist
-from django.utils import six, timezone
+from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
@@ -344,8 +342,7 @@ def as_serializer_error(exc):
     }
 
 
-@six.add_metaclass(SerializerMetaclass)
-class Serializer(BaseSerializer):
+class Serializer(BaseSerializer, metaclass=SerializerMetaclass):
     default_error_messages = {
         'invalid': _('Invalid data. Expected a dictionary, but got {datatype}.')
     }

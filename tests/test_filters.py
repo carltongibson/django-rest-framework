@@ -1,6 +1,5 @@
-from __future__ import unicode_literals
-
 import datetime
+from importlib import reload as reload_module
 
 import pytest
 from django.core.exceptions import ImproperlyConfigured
@@ -8,7 +7,6 @@ from django.db import models
 from django.db.models.functions import Concat, Upper
 from django.test import TestCase
 from django.test.utils import override_settings
-from django.utils.six.moves import reload_module
 
 from rest_framework import filters, generics, serializers
 from rest_framework.compat import coreschema
