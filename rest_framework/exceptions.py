@@ -12,7 +12,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
 from rest_framework import status
-from rest_framework.compat import unicode_to_repr
 from rest_framework.utils.serializer_helpers import ReturnDict, ReturnList
 
 
@@ -83,10 +82,10 @@ class ErrorDetail(str):
         return not self.__eq__(other)
 
     def __repr__(self):
-        return unicode_to_repr('ErrorDetail(string=%r, code=%r)' % (
+        return 'ErrorDetail(string=%r, code=%r)' % (
             str(self),
             self.code,
-        ))
+        )
 
     def __hash__(self):
         return hash(str(self))

@@ -6,6 +6,7 @@ import inspect
 import re
 import uuid
 from collections import OrderedDict
+from collections.abc import Mapping
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -30,9 +31,8 @@ from pytz.exceptions import InvalidTimeError
 
 from rest_framework import ISO_8601
 from rest_framework.compat import (
-    Mapping, MaxLengthValidator, MaxValueValidator, MinLengthValidator,
-    MinValueValidator, ProhibitNullCharactersValidator, unicode_repr,
-    unicode_to_repr
+    MaxLengthValidator, MaxValueValidator, MinLengthValidator,
+    MinValueValidator, ProhibitNullCharactersValidator
 )
 from rest_framework.exceptions import ErrorDetail, ValidationError
 from rest_framework.settings import api_settings
@@ -253,9 +253,7 @@ class CreateOnlyDefault:
         return self.default
 
     def __repr__(self):
-        return unicode_to_repr(
-            '%s(%s)' % (self.__class__.__name__, unicode_repr(self.default))
-        )
+        return '%s(%s)' % (self.__class__.__name__, repr(self.default))
 
 
 class CurrentUserDefault:
@@ -266,7 +264,7 @@ class CurrentUserDefault:
         return self.user
 
     def __repr__(self):
-        return unicode_to_repr('%s()' % self.__class__.__name__)
+        return '%s()' % self.__class__.__name__
 
 
 class SkipField(Exception):
@@ -627,7 +625,7 @@ class Field:
         This allows us to create descriptive representations for serializer
         instances that show all the declared fields on the serializer.
         """
-        return unicode_to_repr(representation.field_repr(self))
+        return representation.field_repr(self)
 
 
 # Boolean types...

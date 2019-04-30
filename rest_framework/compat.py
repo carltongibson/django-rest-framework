@@ -3,7 +3,6 @@ The `compat` module provides support for backwards compatibility with older
 versions of Django/Python, and compatibility wrappers around optional packages.
 """
 import sys
-from collections.abc import Mapping, MutableMapping  # noqa
 
 from django.conf import settings
 from django.core import validators
@@ -25,11 +24,6 @@ try:
     from django.core.validators import ProhibitNullCharactersValidator  # noqa
 except ImportError:
     ProhibitNullCharactersValidator = None
-
-try:
-    from unittest import mock
-except ImportError:
-    mock = None
 
 
 def get_original_route(urlpattern):
@@ -77,21 +71,6 @@ def make_url_resolver(regex, urlpatterns):
     except ImportError:
         # Django < 2.0
         return URLResolver(regex, urlpatterns)
-
-
-def unicode_repr(instance):
-    # Get the repr of an instance, but ensure it is a unicode string
-    # on both python 3 (already the case) and 2 (not the case).
-
-    return repr(instance)
-
-
-def unicode_to_repr(value):
-    # Coerce a unicode string to the correct repr return type, depending on
-    # the Python version. We wrap all our `__repr__` implementations with
-    # this and then use unicode throughout internally.
-
-    return value
 
 
 def unicode_http_header(value):

@@ -9,7 +9,6 @@ object creation, and makes it possible to switch between using the implicit
 from django.db import DataError
 from django.utils.translation import ugettext_lazy as _
 
-from rest_framework.compat import unicode_to_repr
 from rest_framework.exceptions import ValidationError
 from rest_framework.utils.representation import smart_repr
 
@@ -80,10 +79,10 @@ class UniqueValidator:
             raise ValidationError(self.message, code='unique')
 
     def __repr__(self):
-        return unicode_to_repr('<%s(queryset=%s)>' % (
+        return '<%s(queryset=%s)>' % (
             self.__class__.__name__,
             smart_repr(self.queryset)
-        ))
+        )
 
 
 class UniqueTogetherValidator:
@@ -168,11 +167,11 @@ class UniqueTogetherValidator:
             raise ValidationError(message, code='unique')
 
     def __repr__(self):
-        return unicode_to_repr('<%s(queryset=%s, fields=%s)>' % (
+        return '<%s(queryset=%s, fields=%s)>' % (
             self.__class__.__name__,
             smart_repr(self.queryset),
             smart_repr(self.fields)
-        ))
+        )
 
 
 class BaseUniqueForValidator:
@@ -234,12 +233,12 @@ class BaseUniqueForValidator:
             }, code='unique')
 
     def __repr__(self):
-        return unicode_to_repr('<%s(queryset=%s, field=%s, date_field=%s)>' % (
+        return '<%s(queryset=%s, field=%s, date_field=%s)>' % (
             self.__class__.__name__,
             smart_repr(self.queryset),
             smart_repr(self.field),
             smart_repr(self.date_field)
-        ))
+        )
 
 
 class UniqueForDateValidator(BaseUniqueForValidator):

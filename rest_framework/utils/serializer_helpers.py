@@ -1,8 +1,8 @@
 from collections import OrderedDict
+from collections.abc import MutableMapping
 
 from django.utils.encoding import force_text
 
-from rest_framework.compat import MutableMapping, unicode_to_repr
 from rest_framework.utils import json
 
 
@@ -71,9 +71,9 @@ class BoundField:
         return self._field.__class__
 
     def __repr__(self):
-        return unicode_to_repr('<%s value=%s errors=%s>' % (
+        return '<%s value=%s errors=%s>' % (
             self.__class__.__name__, self.value, self.errors
-        ))
+        )
 
     def as_form_field(self):
         value = '' if (self.value is None or self.value is False) else self.value

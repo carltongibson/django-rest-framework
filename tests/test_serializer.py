@@ -2,12 +2,12 @@ import inspect
 import pickle
 import re
 import unittest
+from collections.abc import Mapping
 
 import pytest
 from django.db import models
 
 from rest_framework import exceptions, fields, relations, serializers
-from rest_framework.compat import Mapping, unicode_repr
 from rest_framework.fields import Field
 
 from .models import (
@@ -391,23 +391,6 @@ class TestIncorrectlyConfigured:
             "The serializer field might be named incorrectly and not match any attribute or key on the `ExampleObject` instance.\n"
             "Original exception text was:"
         )
-
-
-class TestUnicodeRepr:
-    def test_unicode_repr(self):
-        class ExampleSerializer(serializers.Serializer):
-            example = serializers.CharField()
-
-        class ExampleObject:
-            def __init__(self):
-                self.example = '한국'
-
-            def __repr__(self):
-                return unicode_repr(self.example)
-
-        instance = ExampleObject()
-        serializer = ExampleSerializer(instance)
-        repr(serializer)  # Should not error.
 
 
 class TestNotRequiredOutput:

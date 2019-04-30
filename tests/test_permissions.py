@@ -1,6 +1,7 @@
 import base64
 import unittest
 import warnings
+from unittest import mock
 
 import django
 import pytest
@@ -13,7 +14,7 @@ from rest_framework import (
     HTTP_HEADER_ENCODING, RemovedInDRF310Warning, authentication, generics,
     permissions, serializers, status, views
 )
-from rest_framework.compat import PY36, is_guardian_installed, mock
+from rest_framework.compat import PY36, is_guardian_installed
 from rest_framework.filters import DjangoObjectPermissionsFilter
 from rest_framework.routers import DefaultRouter
 from rest_framework.test import APIRequestFactory

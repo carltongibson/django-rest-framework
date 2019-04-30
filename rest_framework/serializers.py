@@ -14,6 +14,7 @@ import copy
 import inspect
 import traceback
 from collections import OrderedDict
+from collections.abc import Mapping
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.exceptions import ValidationError as DjangoValidationError
@@ -25,7 +26,7 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
-from rest_framework.compat import Mapping, postgres_fields, unicode_to_repr
+from rest_framework.compat import postgres_fields
 from rest_framework.exceptions import ErrorDetail, ValidationError
 from rest_framework.fields import get_error_detail, set_value
 from rest_framework.settings import api_settings
@@ -532,7 +533,7 @@ class Serializer(BaseSerializer, metaclass=SerializerMetaclass):
         return attrs
 
     def __repr__(self):
-        return unicode_to_repr(representation.serializer_repr(self, indent=1))
+        return representation.serializer_repr(self, indent=1)
 
     # The following are used for accessing `BoundField` instances on the
     # serializer, for the purposes of presenting a form-like API onto the
@@ -755,7 +756,7 @@ class ListSerializer(BaseSerializer):
         return not bool(self._errors)
 
     def __repr__(self):
-        return unicode_to_repr(representation.list_repr(self, indent=1))
+        return representation.list_repr(self, indent=1)
 
     # Include a backlink to the serializer class on return objects.
     # Allows renderers such as HTMLFormRenderer to get the full field info.
