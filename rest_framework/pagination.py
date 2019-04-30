@@ -1,4 +1,3 @@
-# coding: utf-8
 """
 Pagination serializers determine the structure of the output that should
 be used for paginated responses.
