@@ -529,7 +529,7 @@ class BasicAuthenticationUnitTests(TestCase):
     def test_basic_authentication_raises_error_if_user_not_active(self):
         from rest_framework import authentication
 
-        class MockUser(object):
+        class MockUser:
             is_active = False
         old_authenticate = authentication.authenticate
         authentication.authenticate = lambda **kwargs: MockUser()

@@ -414,7 +414,7 @@ class TestGenericIPAddressFieldValidation(TestCase):
         self.assertFalse(s.is_valid())
         self.assertEqual(1, len(s.errors['address']),
                          'Unexpected number of validation errors: '
-                         '{0}'.format(s.errors))
+                         '{}'.format(s.errors))
 
 
 @pytest.mark.skipif('not postgres_fields')

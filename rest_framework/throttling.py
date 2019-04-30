@@ -230,7 +230,7 @@ class ScopedRateThrottle(SimpleRateThrottle):
         self.num_requests, self.duration = self.parse_rate(self.rate)
 
         # We can now proceed as normal.
-        return super(ScopedRateThrottle, self).allow_request(request, view)
+        return super().allow_request(request, view)
 
     def get_cache_key(self, request, view):
         """

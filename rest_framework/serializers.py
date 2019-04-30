@@ -113,14 +113,14 @@ class BaseSerializer(Field):
         self.partial = kwargs.pop('partial', False)
         self._context = kwargs.pop('context', {})
         kwargs.pop('many', None)
-        super(BaseSerializer, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def __new__(cls, *args, **kwargs):
         # We override this method in order to automagically create
         # `ListSerializer` classes instead when `many=True` is set.
         if kwargs.pop('many', False):
             return cls.many_init(*args, **kwargs)
-        return super(BaseSerializer, cls).__new__(cls, *args, **kwargs)
+        return super().__new__(cls, *args, **kwargs)
 
     @classmethod
     def many_init(cls, *args, **kwargs):
@@ -313,7 +313,7 @@ class SerializerMetaclass(type):
 
     def __new__(cls, name, bases, attrs):
         attrs['_declared_fields'] = cls._get_declared_fields(bases, attrs)
-        return super(SerializerMetaclass, cls).__new__(cls, name, bases, attrs)
+        return super().__new__(cls, name, bases, attrs)
 
 
 def as_serializer_error(exc):
@@ -463,7 +463,7 @@ class Serializer(BaseSerializer, metaclass=SerializerMetaclass):
             to_validate.update(value)
         else:
             to_validate = value
-        super(Serializer, self).run_validators(to_validate)
+        super().run_validators(to_validate)
 
     def to_internal_value(self, data):
         """
@@ -557,12 +557,12 @@ class Serializer(BaseSerializer, metaclass=SerializerMetaclass):
 
     @property
     def data(self):
-        ret = super(Serializer, self).data
+        ret = super().data
         return ReturnDict(ret, serializer=self)
 
     @property
     def errors(self):
-        ret = super(Serializer, self).errors
+        ret = super().errors
         if isinstance(ret, list) and len(ret) == 1 and getattr(ret[0], 'code', None) == 'null':
             # Edge case. Provide a more descriptive error than
             # "this field may not be null", when no data is passed.
@@ -588,11 +588,11 @@ class ListSerializer(BaseSerializer):
         self.allow_empty = kwargs.pop('allow_empty', True)
         assert self.child is not None, '`child` is a required argument.'
         assert not inspect.isclass(self.child), '`child` has not been instantiated.'
-        super(ListSerializer, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.child.bind(field_name='', parent=self)
 
     def bind(self, field_name, parent):
-        super(ListSerializer, self).bind(field_name, parent)
+        super().bind(field_name, parent)
         self.partial = self.parent.partial
 
     def get_initial(self):
@@ -762,12 +762,12 @@ class ListSerializer(BaseSerializer):
 
     @property
     def data(self):
-        ret = super(ListSerializer, self).data
+        ret = super().data
         return ReturnList(ret, serializer=self)
 
     @property
     def errors(self):
-        ret = super(ListSerializer, self).errors
+        ret = super().errors
         if isinstance(ret, list) and len(ret) == 1 and getattr(ret[0], 'code', None) == 'null':
             # Edge case. Provide a more descriptive error than
             # "this field may not be null", when no data is passed.

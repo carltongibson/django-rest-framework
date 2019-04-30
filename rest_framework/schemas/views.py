@@ -38,4 +38,4 @@ class SchemaView(APIView):
         self.renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
         neg = self.perform_content_negotiation(self.request, force=True)
         self.request.accepted_renderer, self.request.accepted_media_type = neg
-        return super(SchemaView, self).handle_exception(exc)
+        return super().handle_exception(exc)

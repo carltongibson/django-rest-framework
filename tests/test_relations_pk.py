@@ -559,7 +559,7 @@ class OneToOnePrimaryKeyTests(TestCase):
         # When: Trying to create a second object
         second_source = OneToOnePKSourceSerializer(data=data)
         self.assertFalse(second_source.is_valid())
-        expected = {'target': [u'one to one pk source with this target already exists.']}
+        expected = {'target': ['one to one pk source with this target already exists.']}
         self.assertDictEqual(second_source.errors, expected)
 
     def test_one_to_one_when_primary_key_does_not_exist(self):

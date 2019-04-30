@@ -68,7 +68,7 @@ class ErrorDetail(str):
     code = None
 
     def __new__(cls, string, code=None):
-        self = super(ErrorDetail, cls).__new__(cls, string)
+        self = super().__new__(cls, string)
         self.code = code
         return self
 

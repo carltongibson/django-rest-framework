@@ -135,7 +135,7 @@ class APIView(View):
                 )
             cls.queryset._fetch_all = force_evaluation
 
-        view = super(APIView, cls).as_view(**initkwargs)
+        view = super().as_view(**initkwargs)
         view.cls = cls
         view.initkwargs = initkwargs
 

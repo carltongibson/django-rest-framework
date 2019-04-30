@@ -165,7 +165,7 @@ class TestEmpty:
         """
         field = serializers.IntegerField(default=123)
         output = field.run_validation()
-        assert output is 123
+        assert output == 123
 
 
 class TestSource:
@@ -752,7 +752,7 @@ class TestCharField(FieldValues):
         def raise_exception(value):
             raise exceptions.ValidationError('Raised error')
 
-        for validators in ([raise_exception], (raise_exception,), set([raise_exception])):
+        for validators in ([raise_exception], (raise_exception,), {raise_exception}):
             field = serializers.CharField(validators=validators)
             with pytest.raises(serializers.ValidationError) as exc_info:
                 field.run_validation(value)
@@ -820,7 +820,7 @@ class TestSlugField(FieldValues):
 
         validation_error = False
         try:
-            field.run_validation(u'slug-99-\u0420')
+            field.run_validation('slug-99-\u0420')
         except serializers.ValidationError:
             validation_error = True
 
@@ -1626,7 +1626,7 @@ class TestChoiceField(FieldValues):
             ]
         )
         field.choices = [1]
-        assert field.run_validation(1) is 1
+        assert field.run_validation(1) == 1
         with pytest.raises(serializers.ValidationError) as exc_info:
             field.run_validation(2)
         assert exc_info.value.detail == ['"2" is not a valid choice.']

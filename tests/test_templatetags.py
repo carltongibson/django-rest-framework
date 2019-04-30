@@ -222,7 +222,7 @@ class TemplateTagTests(TestCase):
         assert result == ''
 
     def test_get_pagination_html(self):
-        class MockPager(object):
+        class MockPager:
             def __init__(self):
                 self.called = False
 
@@ -337,7 +337,7 @@ class SchemaLinksTests(TestCase):
         )
         section = schema['users']
         flat_links = schema_links(section)
-        assert len(flat_links) is 0
+        assert len(flat_links) == 0
 
     def test_single_action(self):
         schema = coreapi.Document(
@@ -355,7 +355,7 @@ class SchemaLinksTests(TestCase):
         )
         section = schema['users']
         flat_links = schema_links(section)
-        assert len(flat_links) is 1
+        assert len(flat_links) == 1
         assert 'list' in flat_links
 
     def test_default_actions(self):
@@ -393,7 +393,7 @@ class SchemaLinksTests(TestCase):
         )
         section = schema['users']
         flat_links = schema_links(section)
-        assert len(flat_links) is 4
+        assert len(flat_links) == 4
         assert 'list' in flat_links
         assert 'create' in flat_links
         assert 'read' in flat_links
@@ -441,7 +441,7 @@ class SchemaLinksTests(TestCase):
         )
         section = schema['users']
         flat_links = schema_links(section)
-        assert len(flat_links) is 5
+        assert len(flat_links) == 5
         assert 'list' in flat_links
         assert 'create' in flat_links
         assert 'read' in flat_links
@@ -499,7 +499,7 @@ class SchemaLinksTests(TestCase):
         )
         section = schema['users']
         flat_links = schema_links(section)
-        assert len(flat_links) is 6
+        assert len(flat_links) == 6
         assert 'list' in flat_links
         assert 'create' in flat_links
         assert 'read' in flat_links
@@ -550,7 +550,7 @@ class SchemaLinksTests(TestCase):
         )
         section = schema['animals']
         flat_links = schema_links(section)
-        assert len(flat_links) is 4
+        assert len(flat_links) == 4
         assert 'cat > create' in flat_links
         assert 'cat > list' in flat_links
         assert 'dog > read' in flat_links
@@ -619,7 +619,7 @@ class SchemaLinksTests(TestCase):
         )
         section = schema['animals']
         flat_links = schema_links(section)
-        assert len(flat_links) is 4
+        assert len(flat_links) == 4
         assert 'cat > create' in flat_links
         assert 'cat > list' in flat_links
         assert 'dog > read' in flat_links
@@ -627,6 +627,6 @@ class SchemaLinksTests(TestCase):
 
         section = schema['farmers']
         flat_links = schema_links(section)
-        assert len(flat_links) is 2
+        assert len(flat_links) == 2
         assert 'silo > list' in flat_links
         assert 'silo > soy > list' in flat_links

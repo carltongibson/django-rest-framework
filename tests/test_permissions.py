@@ -329,14 +329,14 @@ class ObjectPermissionsIntegrationTests(TestCase):
         everyone = Group.objects.create(name='everyone')
         model_name = BasicPermModel._meta.model_name
         app_label = BasicPermModel._meta.app_label
-        f = '{0}_{1}'.format
+        f = '{}_{}'.format
         perms = {
             'view': f('view', model_name),
             'change': f('change', model_name),
             'delete': f('delete', model_name)
         }
         for perm in perms.values():
-            perm = '{0}.{1}'.format(app_label, perm)
+            perm = '{}.{}'.format(app_label, perm)
             assign_perm(perm, everyone)
         everyone.user_set.add(*users.values())
 

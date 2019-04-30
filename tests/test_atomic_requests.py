@@ -36,7 +36,7 @@ class APIExceptionView(APIView):
 class NonAtomicAPIExceptionView(APIView):
     @transaction.non_atomic_requests
     def dispatch(self, *args, **kwargs):
-        return super(NonAtomicAPIExceptionView, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         BasicModel.objects.all()

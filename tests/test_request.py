@@ -232,7 +232,7 @@ class TestUserSetter(TestCase):
         This proves that when an AttributeError is raised inside of the request.user
         property, that we can handle this and report the true, underlying error.
         """
-        class AuthRaisesAttributeError(object):
+        class AuthRaisesAttributeError:
             def authenticate(self, request):
                 self.MISSPELLED_NAME_THAT_DOESNT_EXIST
 

@@ -132,7 +132,7 @@ class ViewSetMixin:
         """
         Set the `.action` attribute on the view, depending on the request method.
         """
-        request = super(ViewSetMixin, self).initialize_request(request, *args, **kwargs)
+        request = super().initialize_request(request, *args, **kwargs)
         method = request.method.lower()
         if method == 'options':
             # This is a special case as we always provide handling for the

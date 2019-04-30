@@ -64,7 +64,7 @@ class DefaultContentNegotiation(BaseContentNegotiation):
                             # Accepted media type is 'application/json'
                             full_media_type = ';'.join(
                                 (renderer.media_type,) +
-                                tuple('{0}={1}'.format(
+                                tuple('{}={}'.format(
                                     key, value.decode(HTTP_HEADER_ENCODING))
                                     for key, value in media_type_wrapper.params.items()))
                             return renderer, full_media_type

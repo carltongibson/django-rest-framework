@@ -168,7 +168,7 @@ class TestSerializer:
             latitude = serializers.FloatField(source='y')
 
             def to_internal_value(self, data):
-                kwargs = super(NestedPointSerializer, self).to_internal_value(data)
+                kwargs = super().to_internal_value(data)
                 return Point(srid=4326, **kwargs)
 
         serializer = NestedPointSerializer(data={'longitude': 6.958307, 'latitude': 50.941357})
@@ -198,7 +198,7 @@ class TestSerializer:
         def raise_exception(value):
             raise exceptions.ValidationError('Raised error')
 
-        for validators in ([raise_exception], (raise_exception,), set([raise_exception])):
+        for validators in ([raise_exception], (raise_exception,), {raise_exception}):
             class ExampleSerializer(serializers.Serializer):
                 char = serializers.CharField(validators=validators)
                 integer = serializers.IntegerField()
@@ -606,7 +606,7 @@ class Test2555Regression:
     def test_serializer_context(self):
         class NestedSerializer(serializers.Serializer):
             def __init__(self, *args, **kwargs):
-                super(NestedSerializer, self).__init__(*args, **kwargs)
+                super().__init__(*args, **kwargs)
                 # .context should not cache
                 self.context
 

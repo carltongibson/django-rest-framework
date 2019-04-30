@@ -88,7 +88,7 @@ def get_attribute(instance, attrs):
                 # If we raised an Attribute or KeyError here it'd get treated
                 # as an omitted field in `Field.get_attribute()`. Instead we
                 # raise a ValueError to ensure the exception is not masked.
-                raise ValueError('Exception raised in callable attribute "{0}"; original exception was: {1}'.format(attr, exc))
+                raise ValueError('Exception raised in callable attribute "{}"; original exception was: {}'.format(attr, exc))
 
     return instance
 
@@ -598,7 +598,7 @@ class Field:
         When a field is instantiated, we store the arguments that were used,
         so that we can present a helpful representation of the object.
         """
-        instance = super(Field, cls).__new__(cls)
+        instance = super().__new__(cls)
         instance._args = args
         instance._kwargs = kwargs
         return instance
@@ -843,7 +843,7 @@ class UUIDField(Field):
         if self.uuid_format not in self.valid_formats:
             raise ValueError(
                 'Invalid format for uuid representation. '
-                'Must be one of "{0}"'.format('", "'.join(self.valid_formats))
+                'Must be one of "{}"'.format('", "'.join(self.valid_formats))
             )
         super().__init__(**kwargs)
 
@@ -1104,7 +1104,7 @@ class DecimalField(Field):
         if self.localize:
             return localize_input(quantized)
 
-        return '{0:f}'.format(quantized)
+        return '{:f}'.format(quantized)
 
     def quantize(self, value):
         """

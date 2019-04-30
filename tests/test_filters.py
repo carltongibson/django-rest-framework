@@ -161,7 +161,7 @@ class SearchFilterTests(TestCase):
             def get_search_fields(self, view, request):
                 if request.query_params.get('title_only'):
                     return ('$title',)
-                return super(CustomSearchFilter, self).get_search_fields(view, request)
+                return super().get_search_fields(view, request)
 
         class SearchListView(generics.ListAPIView):
             queryset = SearchFilterModel.objects.all()

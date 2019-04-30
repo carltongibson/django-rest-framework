@@ -121,7 +121,7 @@ class RelatedField(Field):
         # `ManyRelatedField` classes instead when `many=True` is set.
         if kwargs.pop('many', False):
             return cls.many_init(*args, **kwargs)
-        return super(RelatedField, cls).__new__(cls, *args, **kwargs)
+        return super().__new__(cls, *args, **kwargs)
 
     @classmethod
     def many_init(cls, *args, **kwargs):

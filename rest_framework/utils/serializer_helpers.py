@@ -101,7 +101,7 @@ class NestedBoundField(BoundField):
     """
 
     def __init__(self, field, value, errors, prefix=''):
-        if value is None or value is '':
+        if value is None or value == '':
             value = {}
         super().__init__(field, value, errors, prefix)
 

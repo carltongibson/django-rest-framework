@@ -290,13 +290,13 @@ class TestUrlPatternTestCase(URLPatternsTestCase):
     @classmethod
     def setUpClass(cls):
         assert urlpatterns is not cls.urlpatterns
-        super(TestUrlPatternTestCase, cls).setUpClass()
+        super().setUpClass()
         assert urlpatterns is cls.urlpatterns
 
     @classmethod
     def tearDownClass(cls):
         assert urlpatterns is cls.urlpatterns
-        super(TestUrlPatternTestCase, cls).tearDownClass()
+        super().tearDownClass()
         assert urlpatterns is not cls.urlpatterns
 
     def test_urlpatterns(self):

@@ -84,7 +84,7 @@ class URLPathVersioning(BaseVersioning):
             kwargs = {} if (kwargs is None) else kwargs
             kwargs[self.version_param] = request.version
 
-        return super(URLPathVersioning, self).reverse(
+        return super().reverse(
             viewname, args, kwargs, request, format, **extra
         )
 
@@ -130,7 +130,7 @@ class NamespaceVersioning(BaseVersioning):
     def reverse(self, viewname, args=None, kwargs=None, request=None, format=None, **extra):
         if request.version is not None:
             viewname = self.get_versioned_viewname(viewname, request)
-        return super(NamespaceVersioning, self).reverse(
+        return super().reverse(
             viewname, args, kwargs, request, format, **extra
         )
 
@@ -176,7 +176,7 @@ class QueryParameterVersioning(BaseVersioning):
         return version
 
     def reverse(self, viewname, args=None, kwargs=None, request=None, format=None, **extra):
-        url = super(QueryParameterVersioning, self).reverse(
+        url = super().reverse(
             viewname, args, kwargs, request, format, **extra
         )
         if request.version is not None:
