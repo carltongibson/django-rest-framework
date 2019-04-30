@@ -1,7 +1,7 @@
 import inspect
 import pickle
 import re
-import unittest
+from collections import ChainMap
 
 import pytest
 from django.db import models
@@ -15,14 +15,9 @@ from .models import (
 )
 from .utils import MockObject
 
-try:
-    from collections import ChainMap
-except ImportError:
-    ChainMap = False
-
-
 # Test serializer fields imports.
 # -------------------------------
+
 
 class TestFieldImports:
     def is_field(self, name, value):
@@ -127,7 +122,6 @@ class TestSerializer:
         assert not serializer.is_valid()
         assert serializer.errors == {'non_field_errors': ['No data provided']}
 
-    @unittest.skipUnless(ChainMap, 'requires python 3.3')
     def test_serialize_chainmap(self):
         data = ChainMap({'char': 'abc'}, {'integer': 123})
         serializer = self.Serializer(data=data)
