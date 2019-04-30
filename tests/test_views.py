@@ -1,5 +1,4 @@
 import copy
-import sys
 
 from django.test import TestCase
 
@@ -12,10 +11,7 @@ from rest_framework.views import APIView
 
 factory = APIRequestFactory()
 
-if sys.version_info[:2] >= (3, 4):
-    JSON_ERROR = 'JSON parse error - Expecting value:'
-else:
-    JSON_ERROR = 'JSON parse error - No JSON object could be decoded'
+JSON_ERROR = 'JSON parse error - Expecting value:'
 
 
 class BasicView(APIView):
